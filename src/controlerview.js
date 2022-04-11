@@ -91,6 +91,7 @@ function showEditThought(idPost, thought) {
 }
 
 function doEditPost(idPost) {
+  // Obtiene el valor del text area
   const thinkingValue = document.getElementById(`editThougth${idPost}`).value;
   editPosts(idPost, thinkingValue);
 }
