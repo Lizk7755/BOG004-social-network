@@ -8,7 +8,7 @@ import {
   registerAddPost, doLike, showEditThought, deletePost, doEditPost,
 } from './controlerview.js';
 
-// Este es el punto de entrada de tu aplicacion
+// Este es el punto de entrada
 import { changeView } from './lib/router.js';
 
 function onChangeView() {

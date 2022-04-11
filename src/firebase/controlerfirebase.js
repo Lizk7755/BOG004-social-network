@@ -143,7 +143,7 @@ const getPostList = async () => {
         <i id= "btnEditThougth${document.id}" class="fa-solid fa-pen-to-square posticon"></i>        
         <i id="btnDeletePost${document.id}" class="fa-solid fa-trash-can posticon"></i>      
         <p id= "checkEditP${document.id}" class="hide-thougth">
-          <i id= "checkEdit${document.id}" class="hide-thougth fa-solid fa-check posticon"></i>  
+            <i id= "checkEdit${document.id}" class="hide-thougth fa-solid fa-check posticon"></i>  
         </p>
         </div>
       
@@ -151,7 +151,7 @@ const getPostList = async () => {
 
     PostJS += `
       document.getElementById('doLikeImg${document.id}').addEventListener('click', () => {doLike('${document.id}');});
-      document.getElementById('btnEditThougth${document.id}').addEventListener('click', () => {showEditThought('${document.id}', '${data.thinking}');});
+      document.getElementById('btnEditThougth${document.id}').addEventListener('click', () => {showEditThought('${document.id}', '${encodeURIComponent(data.thinking)}');});
       document.getElementById('checkEdit${document.id}').addEventListener('click', () => {doEditPost('${document.id}');});
       document.getElementById('btnDeletePost${document.id}').addEventListener('click', () => {deletePost('${document.id}');});
     `;
@@ -192,7 +192,6 @@ const addPost = async (thinking) => {
     console.error('Error adding document: ', e);
     // TODO: escribir la causa del error en la pantalla o algo asi como en los de auth
   }
-  getPostList();
 };
 
 const doLike = async (idPost) => {
@@ -214,7 +213,7 @@ const doLike = async (idPost) => {
       // 2.2.1 Si no esta, agrega el correo al arreglo
       likes.push(usuario.email);
     } else {
-      // 2.2.2 Si SI esta, lo quita del arreglo algo.remove
+      // 2.2.2 Si SI esta, lo quita del arreglo
       likes.splice(index);
     }
     // 3. setDoc
@@ -231,14 +230,13 @@ const doLike = async (idPost) => {
     console.error('Error adding document: ', e);
     // TODO: escribir la causa del error en la pantalla o algo asi como en los de auth
   }
-  getPostList();
 };
 
 // Eliminar posts
-const deletePost = (id) => {
+const deletePost = async (id) => {
   console.log(id);
   const db = getFirestore();
-  deleteDoc(doc(db, 'posts', id));
+  await deleteDoc(doc(db, 'posts', id));
   getPostList();
 };
 
